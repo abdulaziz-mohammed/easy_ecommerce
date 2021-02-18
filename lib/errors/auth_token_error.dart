@@ -1,0 +1,3 @@
+
+class AuthTokenError extends Error{
+}
