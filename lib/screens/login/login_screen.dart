@@ -2,7 +2,7 @@ import '../../generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 import '../screens.dart';
-import '../../page_builders/login_page_builder.dart';
+import '../../page_builders/auth_page_builder.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -17,8 +17,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return LoginPageBuilder(builder: (context, state, bloc) {
-      if (state is LoginStateLoading || state is LoginStateSuccess)
+    return AuthPageBuilder(builder: (context, state, bloc) {
+      if (state is LoadingState || state is LoggedInState)
         return LoadingScreen();
 
       return Scaffold(
@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
   }
 
-  _loginPressed(LoginBloc bloc) {
+  _loginPressed(AuthBloc bloc) {
     FocusScope.of(context).requestFocus(new FocusNode());
     bloc.add(Login(username: _username.text, password: _password.text));
   }

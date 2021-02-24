@@ -11,6 +11,6 @@ class CategoryService extends ServcieBase {
     if (categories != null) return categories;
 
     return categories =
-        await client.listCategories(UserService.instance.getToken());
+        await client.listCategories(await UserService.instance.getToken());
   }
 }

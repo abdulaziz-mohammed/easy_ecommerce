@@ -1,36 +1,36 @@
-export '../bloc/login_event.dart';
-export '../bloc/login_state.dart';
-export '../bloc/login_bloc.dart';
+export '../bloc/auth_event.dart';
+export '../bloc/auth_state.dart';
+export '../bloc/auth_bloc.dart';
 
 import '../app/app_provider.dart';
 
 import '../bloc/bloc.dart';
-import '../bloc/login_bloc.dart';
+import '../bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
 typedef Widget LoginBuilderFunction(
-    BuildContext context, LoginState state, LoginBloc bloc);
+    BuildContext context, AuthState state, AuthBloc bloc);
 
-class LoginPageBuilder extends StatefulWidget {
+class AuthPageBuilder extends StatefulWidget {
   final LoginBuilderFunction builder;
 
-  LoginPageBuilder({@required this.builder});
+  AuthPageBuilder({@required this.builder});
 
   @override
-  _LoginPageBuilderState createState() => _LoginPageBuilderState();
+  _AuthPageBuilderState createState() => _AuthPageBuilderState();
 }
 
-class _LoginPageBuilderState extends State<LoginPageBuilder> {
-  final LoginBloc _bloc = new LoginBloc();
+class _AuthPageBuilderState extends State<AuthPageBuilder> {
+  final AuthBloc _bloc = new AuthBloc();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginBloc, LoginState>(
+    return BlocBuilder<AuthBloc, AuthState>(
       bloc: _bloc,
       buildWhen: (_, newState) {
-        if (newState is LoginStateSuccess) {
+        if (newState is LoggedInState) {
           context.read<AppProvider>().appRoutes.goToHomePage(context);
           return false;
         }

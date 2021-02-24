@@ -6,10 +6,11 @@ class OrdersService extends ServcieBase {
   static final OrdersService instance = new OrdersService();
 
   Future<List<Order>> getAll() async {
-    return await client.listOrders(UserService.instance.getToken());
+    return await client.listOrders(await UserService.instance.getToken());
   }
 
   Future<Order> create(Order order) async {
-    return await client.createOrder(UserService.instance.getToken(), order);
+    return await client.createOrder(
+        await UserService.instance.getToken(), order);
   }
 }

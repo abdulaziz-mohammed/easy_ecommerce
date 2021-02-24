@@ -6,6 +6,6 @@ class CountryService extends ServcieBase {
   static final CountryService instance = new CountryService();
 
   Future<List<Country>> getAll() async {
-    return await client.listCountries(UserService.instance.getToken());
+    return await client.listCountries(await UserService.instance.getToken());
   }
 }

@@ -3,31 +3,36 @@ import 'package:meta/meta.dart';
 import '../models/models.dart';
 
 @immutable
-abstract class LoginState extends Equatable {}
+abstract class AuthState extends Equatable {}
 
-class InitialLoginState extends LoginState {
+class InitialAuthState extends AuthState {
   @override
   List<Object> get props => [];
 }
 
-class LoginStateLoading extends LoginState {
+class LoadingState extends AuthState {
   @override
   List<Object> get props => [];
 }
 
-class LoginStateSuccess extends LoginState {
+class LoggedInState extends AuthState {
   final Customer user;
 
-  LoginStateSuccess(this.user);
+  LoggedInState(this.user);
 
   @override
   List<Object> get props => [user];
 }
 
-class LoginStateError extends LoginState {
+class LoggedOutState extends AuthState {
+  @override
+  List<Object> get props => [];
+}
+
+class ErrorState extends AuthState {
   final Error error;
 
-  LoginStateError(this.error);
+  ErrorState(this.error);
 
   @override
   List<Object> get props => [error];

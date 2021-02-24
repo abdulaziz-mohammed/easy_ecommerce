@@ -19,7 +19,7 @@ class AppRoutes {
   static const ORDER = '/order';
 
   Future<void> goToLoginPage(BuildContext context) async {
-    await UserService.instance.deleteToken();
+    await UserService.instance.logout();
     await Navigator.of(context)
         .pushNamedAndRemoveUntil(AppRoutes.LOGIN, (_) => false);
   }

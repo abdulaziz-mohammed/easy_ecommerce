@@ -1,7 +1,6 @@
-import '../../generated/l10n.dart';
+import 'package:easy_ecommerce/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:async';
 
 class LoadingScreen extends StatefulWidget {
@@ -25,6 +24,8 @@ class _LoadingScreenState extends State<LoadingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("context:");
+    print(I18n.current);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(

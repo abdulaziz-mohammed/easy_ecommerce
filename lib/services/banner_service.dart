@@ -10,6 +10,7 @@ class BannerService extends ServcieBase {
   Future<List<Banner>> getAll() async {
     if (banners != null) return banners;
 
-    return banners = await client.listBanners(UserService.instance.getToken());
+    return banners =
+        await client.listBanners(await UserService.instance.getToken());
   }
 }

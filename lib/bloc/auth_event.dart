@@ -2,9 +2,14 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-abstract class LoginEvent extends Equatable {}
+abstract class AuthEvent extends Equatable {}
 
-class Login extends LoginEvent {
+class Init extends AuthEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class Login extends AuthEvent {
   final String username;
   final String password;
 
@@ -15,4 +20,9 @@ class Login extends LoginEvent {
 
   @override
   List<Object> get props => [username, password];
+}
+
+class Logout extends AuthEvent {
+  @override
+  List<Object> get props => [];
 }

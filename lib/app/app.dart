@@ -1,3 +1,5 @@
+import 'package:easy_ecommerce/bloc/bloc.dart';
+
 import '../screens/app_routes.dart';
 import '../themes/dark.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -60,8 +62,11 @@ class AppWidgetState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return Provider(
-      create: (_) => this.appProvider,
+    return MultiProvider(
+      providers: [
+        Provider(create: (_) => this.appProvider),
+        Provider(create: (_) => new AuthBloc()..add(Init())),
+      ],
       child: MaterialApp(
         title: 'ecommerce',
         debugShowCheckedModeBanner: false,

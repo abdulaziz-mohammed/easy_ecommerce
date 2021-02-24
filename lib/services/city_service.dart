@@ -6,6 +6,7 @@ class CityService extends ServcieBase {
   static final CityService instance = new CityService();
 
   Future<List<City>> getAll(String countryId) async {
-    return await client.listCities(UserService.instance.getToken(), countryId);
+    return await client.listCities(
+        await UserService.instance.getToken(), countryId);
   }
 }

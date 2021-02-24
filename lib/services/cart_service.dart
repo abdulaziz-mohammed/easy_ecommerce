@@ -26,31 +26,32 @@ class CartService extends ServcieBase {
   }
 
   Future<Cart> getCart() async {
-    return localCart = await client.getCart(UserService.instance.getToken());
+    return localCart =
+        await client.getCart(await UserService.instance.getToken());
   }
 
   Future<Cart> addProduct({String productId, int quantity}) async {
     return localCart = await client.addToCart(
-        UserService.instance.getToken(), productId, quantity);
+        await UserService.instance.getToken(), productId, quantity);
   }
 
   Future<Cart> updateCart({String productId, int quantity}) async {
     return localCart = await client.updateCart(
-        UserService.instance.getToken(), productId, quantity);
+        await UserService.instance.getToken(), productId, quantity);
   }
 
   Future<Cart> addCreditCard({String creditCardId}) async {
     return localCart = await client.addCreditCardToCart(
-        UserService.instance.getToken(), creditCardId);
+        await UserService.instance.getToken(), creditCardId);
   }
 
   Future<Cart> addAddress({String addressId}) async {
     return localCart = await client.addAddressToCart(
-        UserService.instance.getToken(), addressId);
+        await UserService.instance.getToken(), addressId);
   }
 
   Future<Order> placeOrder() async {
-    var order = await client.placeOrder(UserService.instance.getToken());
+    var order = await client.placeOrder(await UserService.instance.getToken());
     localCart = new Cart();
     return order;
   }

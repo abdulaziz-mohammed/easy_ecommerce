@@ -6,10 +6,11 @@ class AddressService extends ServcieBase {
   static final AddressService instance = new AddressService();
 
   Future<List<Address>> getAll() async {
-    return await client.listAddresses(UserService.instance.getToken());
+    return await client.listAddresses(await UserService.instance.getToken());
   }
 
   Future<Address> create(Address address) async {
-    return await client.createAddress(UserService.instance.getToken(), address);
+    return await client.createAddress(
+        await UserService.instance.getToken(), address);
   }
 }
