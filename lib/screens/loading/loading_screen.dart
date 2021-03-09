@@ -9,6 +9,27 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: LoadingScreenBody(),
+      ),
+    );
+  }
+}
+
+class LoadingScreenBody extends StatefulWidget {
+  const LoadingScreenBody({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  _LoadingScreenBodyState createState() => _LoadingScreenBodyState();
+}
+
+class _LoadingScreenBodyState extends State<LoadingScreenBody> {
   Timer timer;
   String dots;
 
@@ -23,39 +44,32 @@ class _LoadingScreenState extends State<LoadingScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    print("context:");
-    print(I18n.current);
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            InfiniteRotation(),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-              child: Text(
-                "${I18n.of(context).loading}$dots ",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF62b1ba)),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
   void dispose() {
     timer?.cancel();
     super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        InfiniteRotation(),
+        Container(
+          width: double.infinity,
+          padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+          child: Text(
+            "${I18n.of(context).loading}${dots} ",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF62b1ba)),
+          ),
+        ),
+      ],
+    );
   }
 }
 

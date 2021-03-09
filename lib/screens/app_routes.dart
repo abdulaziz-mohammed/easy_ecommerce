@@ -1,3 +1,6 @@
+import 'package:easy_ecommerce/page_builders/orders_page_builder.dart';
+import 'package:provider/provider.dart';
+
 import '../services/services.dart';
 import 'package:flutter/material.dart';
 import '../models/models.dart';
@@ -18,16 +21,21 @@ class AppRoutes {
   static const ORDERS = '/orders';
   static const ORDER = '/order';
 
-  Future<void> goToLoginPage(BuildContext context) async {
+  Future<void> goToLoginPage(BuildContext context,
+      {bool forceLogin = false}) async {
     await UserService.instance.logout();
-    await Navigator.of(context)
-        .pushNamedAndRemoveUntil(AppRoutes.LOGIN, (_) => false);
+    if (forceLogin)
+      await Navigator.of(context)
+          .pushNamedAndRemoveUntil(AppRoutes.LOGIN, (_) => false);
+    else
+      await Navigator.of(context).pushNamed(AppRoutes.LOGIN);
   }
 
   Future<void> goToHomePage(BuildContext context) async {
-    if (await UserService.instance.isAuthinticated())
-      await Navigator.of(context)
-          .pushNamedAndRemoveUntil(AppRoutes.HOME, (_) => false);
+    // if (await UserService.instance.isAuthinticated())
+    // if (context.read<AuthBloc>().user != null)
+    await Navigator.of(context)
+        .pushNamedAndRemoveUntil(AppRoutes.HOME, (_) => false);
   }
 
   Future<void> goToProductPage(BuildContext context, String productId) async {
@@ -36,9 +44,10 @@ class AppRoutes {
   }
 
   Future<void> goToSearchPage(BuildContext context, {SearchQuery query}) async {
-    if (await UserService.instance.isAuthinticated())
-      await Navigator.of(context).pushNamedAndRemoveUntil(
-          AppRoutes.SEARCH, (route) => route.settings.name == AppRoutes.HOME);
+    // if (await UserService.instance.isAuthinticated())
+    // if (context.read<AuthBloc>().user != null)
+    await Navigator.of(context).pushNamedAndRemoveUntil(
+        AppRoutes.SEARCH, (route) => route.settings.name == AppRoutes.HOME);
   }
 
   Future<void> goToCartPage(BuildContext context) async {

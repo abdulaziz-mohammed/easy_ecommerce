@@ -144,10 +144,11 @@ class FakeGenericStoreClient implements StoreClientInterface {
     await Future.delayed(Duration(milliseconds: 1000));
 
     return new Customer(
-      id: "1",
-      token: "87gg87weef78twefg43F43#98992",
-      firstName: "jhon",
-      lastName: "doe",
+      "1",
+      "87gg87weef78twefg43F43#98992",
+      "jhon",
+      "doe",
+      null,
     );
   }
 

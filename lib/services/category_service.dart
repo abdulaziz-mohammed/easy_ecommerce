@@ -8,7 +8,7 @@ class CategoryService extends ServcieBase {
   List<Category> categories;
 
   Future<List<Category>> getAll() async {
-    if (categories != null) return categories;
+    //if (categories != null) return categories;
 
     return categories =
         await client.listCategories(await UserService.instance.getToken());

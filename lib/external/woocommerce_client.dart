@@ -54,11 +54,11 @@ class WooCommerceClient implements StoreClientInterface {
     var item = response.data;
 
     return new Customer(
-      id: item["id"],
-      token: token,
-      firstName: item["first_name"],
-      lastName: item["last_name"],
-      profilePhoto: item["avatar_url"],
+      item["id"],
+      token,
+      item["first_name"],
+      item["last_name"],
+      item["avatar_url"],
     );
   }
 

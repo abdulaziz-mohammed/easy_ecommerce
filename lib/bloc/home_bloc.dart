@@ -14,12 +14,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     try {
       if (event is FetchHome) {
         yield HomeStateLoading();
+        var categories = CategoryService.instance.getAll();
         var banners = BannerService.instance.getAll();
         var featured = ProductService.instance.getFeatured();
         var onSale = ProductService.instance.getOnsale();
-        var categories = CategoryService.instance.getAll();
 
-        Future.wait([banners, featured, onSale, categories]);
+        Future.wait([categories, banners, featured, onSale]);
 
         yield HomeStateSuccess(
             banners: await banners,

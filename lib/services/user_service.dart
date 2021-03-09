@@ -6,14 +6,24 @@ import 'service_base.dart';
 
 class UserService extends ServcieBase {
   static final UserService instance = new UserService();
+  // final onAuthnticated = BehaviorSubject<bool>.seeded(false);
 
-  Future<bool> isAuthinticated() async {
-    return await client.getToken(username, password);
-
-    var token = await getToken();
-    if (token != null && token.length > 0) return true;
-    return false;
+  Future<String> getToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token');
   }
+
+  _setToken(String token) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('token', token);
+  }
+
+  ///* @deprecated
+  // Future<bool> isAuthinticated() async {
+  //   var token = await getToken();
+  //   if (token != null && token.length > 0) return true;
+  //   return false;
+  // }
 
   Future<Customer> authenticate({
     @required String username,

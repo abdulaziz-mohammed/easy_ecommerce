@@ -1,4 +1,5 @@
 import 'package:easy_ecommerce/bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../screens/app_routes.dart';
 import '../themes/dark.dart';
@@ -46,17 +47,18 @@ class AppWidgetState extends State<App> {
     });
     ServcieBase.setClient(storeClient);
 
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      UserService.instance.isAuthinticated().then((isAuthinticated) {
-        if (navigatorKey.currentState == null) return;
-        var context = navigatorKey.currentState.overlay.context;
-        if (isAuthinticated) {
-          context.read<AppProvider>().appRoutes.goToHomePage(context);
-        } else {
-          context.read<AppProvider>().appRoutes.goToLoginPage(context);
-        }
-      });
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   if (context.read<AuthBloc>().user != null)
+    //     UserService.instance.isAuthinticated().then((isAuthinticated) {
+    //       if (navigatorKey.currentState == null) return;
+    //       var context = navigatorKey.currentState.overlay.context;
+    //       if (isAuthinticated) {
+    //         context.read<AppProvider>().appRoutes.goToHomePage(context);
+    //       } else {
+    //         context.read<AppProvider>().appRoutes.goToLoginPage(context);
+    //       }
+    //     });
+    // });
     SystemChrome.setEnabledSystemUIOverlays([]);
   }
 
@@ -65,25 +67,30 @@ class AppWidgetState extends State<App> {
     return MultiProvider(
       providers: [
         Provider(create: (_) => this.appProvider),
-        Provider(create: (_) => new AuthBloc()..add(Init())),
+        Provider(create: (_) => new AuthBloc()),
       ],
-      child: MaterialApp(
-        title: 'ecommerce',
-        debugShowCheckedModeBanner: false,
-        navigatorKey: navigatorKey,
-        initialRoute: AppRoutes.LOADING,
-        routes: this.appProvider.appRoutes.routes,
-        localizationsDelegates: [
-          I18n.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: I18n.delegate.supportedLocales,
-        locale: this.appProvider.locale,
-        theme: lightTheme(context),
-        darkTheme: darkTheme(context),
-        themeMode: this.appProvider.themeMode,
+      child: BlocListener<AuthBloc, AuthState>(
+        listener: (context, state) {
+          context.read<AppProvider>().appRoutes.goToHomePage(context);
+        },
+        child: MaterialApp(
+          title: 'ecommerce',
+          debugShowCheckedModeBanner: false,
+          navigatorKey: navigatorKey,
+          initialRoute: AppRoutes.LOADING,
+          routes: this.appProvider.appRoutes.routes,
+          localizationsDelegates: [
+            I18n.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: I18n.delegate.supportedLocales,
+          locale: this.appProvider.locale,
+          theme: lightTheme(context),
+          darkTheme: darkTheme(context),
+          themeMode: this.appProvider.themeMode,
+        ),
       ),
     );
   }
